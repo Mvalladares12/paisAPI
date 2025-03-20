@@ -15,7 +15,7 @@ public class Distrito {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_municipio", nullable = false)

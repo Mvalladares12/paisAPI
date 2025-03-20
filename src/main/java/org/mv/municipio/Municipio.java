@@ -20,7 +20,7 @@ public class Municipio {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_departam", nullable = false)
@@ -32,6 +32,7 @@ public class Municipio {
     @Column(name = "nombre", nullable = false, length = 80)
     private String nombre;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "idMunicipio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Distrito> distritos;
 
