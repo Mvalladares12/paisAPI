@@ -56,4 +56,5 @@ public class Departamento{
     public void setMunicipios(List<Municipio> municipios) {
         this.municipios = municipios;
     }
+
 }

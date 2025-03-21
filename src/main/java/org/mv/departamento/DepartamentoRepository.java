@@ -4,6 +4,10 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
 @ApplicationScoped
 public class DepartamentoRepository implements PanacheRepository<Departamento> {
     @Inject

@@ -4,6 +4,8 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.mv.services.Report;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,24 +20,30 @@ public class DepartamentoResource {
 
     DepartamentoMapper departamentoMapper;
 
+    Report report;
+
     @Inject
-    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper) {
+    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper, Report report) {
         this.departamentoRepository = departamentoRepository;
         this.departamentoMapper = departamentoMapper;
+        this.report = report;
     }
-
-    /*@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Departamento> findAll() {
-        return departamentoRepository.listAll();
-    }*/
 
     @GET
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
-                .map(departamento -> new DepartamentoDTO((Departamento) departamento))
+                .map(DepartamentoDTO::new)
                 .collect(Collectors.toList());
     }
+
+    @GET
+    @Path("/pdf")
+    @Produces("application/pdf")
+    public Response getDepartamentosPdf() {
+        byte[] repo= report.generateReport();
+        return Response.ok(repo).header("Content-Disposition", "attachment; filename=reporte.pdf").build();
+    }
+
 
     @GET
     @Path("{id}")

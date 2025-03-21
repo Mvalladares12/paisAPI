@@ -19,4 +19,36 @@ public class DepartamentoDTO {
                 .map(MunicipioDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<MunicipioDTO> getMunicipios() {
+        return municipios;
+    }
+
+    public void setMunicipios(List<MunicipioDTO> municipios) {
+        this.municipios = municipios;
+    }
 }

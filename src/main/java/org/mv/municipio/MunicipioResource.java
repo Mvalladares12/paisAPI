@@ -31,7 +31,7 @@ public class MunicipioResource {
     @GET
     public List<MunicipioDTO> getAllMunicipios() {
         return municipioRepository.list("order by id").stream()
-                .map(municipio -> new MunicipioDTO((Municipio) municipio))
+                .map(MunicipioDTO::new)
                 .collect(Collectors.toList());
     }
 

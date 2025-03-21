@@ -75,4 +75,9 @@ public class Municipio {
     public void setDistritos(List<Distrito> distritos) {
         this.distritos = distritos;
     }
+
+
+    public String getDepartamento(){
+        return this.idDepartam.getNombre();
+    }
 }

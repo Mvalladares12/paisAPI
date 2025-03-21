@@ -30,7 +30,7 @@ public class DistritoResource {
     @GET
     public List<DistritoDTO>  getAllDistritos() {
         return distritoRepository.list("order by id").stream()
-                .map(distrito -> new DistritoDTO((Distrito) distrito))
+                .map(DistritoDTO::new)
                 .collect(Collectors.toList());
     }
 
