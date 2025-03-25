@@ -4,8 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.mv.departamento.Departamento;
 import org.mv.departamento.DepartamentoDTO;
 import org.mv.departamento.DepartamentoRepository;
 
@@ -13,7 +11,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @ApplicationScoped
@@ -24,30 +21,27 @@ public class Report {
 
     public byte[] generateReport() {
         try {
-            // Cargar el reporte compilado (.jasper)
+            // aquí se carga el archivo compilado es decir el .jasper
             InputStream reportStream = getClass().getClassLoader().getResourceAsStream("Blank_A4.jasper");
             if (reportStream == null) {
                 throw new RuntimeException("Reporte no encontrado.");
             }
 
-            // Datos para el reporte (pueden venir de una base de datos, servicio, etc.)
+            // Datos para el reporte se obtienen del repository
             List<DepartamentoDTO> data = dr.list("order by id").stream()
                     .map(DepartamentoDTO::new)
                     .toList();
 
 
-            // Crear el datasource
-            //JRDataSource ds = new JRBeanCollectionDataSource(data);
-
+            // Crear el datasource y los convierte en array luego mostrar los datos
             JRBeanArrayDataSource ds=new JRBeanArrayDataSource(data.toArray());
 
 
-            // Parámetros del reporte (si es necesario)
+            // enviar el parametro ds ya que en el reporte se espera un parametro llamado ds
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("ds", ds);
 
-            // Llenar el reporte
-            //JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, ds);
+            // Llenar el reporte con los datos del datasource
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, ds);
 
             // Exportar a PDF

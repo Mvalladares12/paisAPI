@@ -21,7 +21,7 @@ public class Municipio {
     private Integer id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_departam", nullable = false)
     private Departamento idDepartam;
