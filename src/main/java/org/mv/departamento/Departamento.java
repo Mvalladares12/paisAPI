@@ -1,6 +1,8 @@
 package org.mv.departamento;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.mv.municipio.Municipio;
 
 import java.util.LinkedHashSet;
@@ -22,7 +24,8 @@ public class Departamento{
     @Column(name = "nombre", nullable = false, length = 80)
     private String nombre;
 
-    @OneToMany(mappedBy = "idDepartam", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "idDepartam")
+    @OnDelete(action = OnDeleteAction.RESTRICT)
     private List<Municipio> municipios;
 
     public Integer getId() {

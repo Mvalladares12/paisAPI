@@ -4,9 +4,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.mv.departamento.DepartamentoDTO;
 import org.mv.departamento.DepartamentoRepository;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +24,7 @@ public class Report {
     @Inject
     DepartamentoRepository dr;
 
-    public byte[] generateReport() {
+    public byte[] generateReportPDF() {
         try {
             // aquí se carga el archivo compilado es decir el .jasper
             InputStream reportStream = getClass().getClassLoader().getResourceAsStream("Blank_A4.jasper");
@@ -44,10 +49,14 @@ public class Report {
             // Llenar el reporte con los datos del datasource
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, ds);
 
+
+
             // Exportar a PDF
             return JasperExportManager.exportReportToPdf(jasperPrint);
         } catch (JRException e) {
             throw new RuntimeException("Error al generar el reporte", e);
         }
     }
+
+
 }
