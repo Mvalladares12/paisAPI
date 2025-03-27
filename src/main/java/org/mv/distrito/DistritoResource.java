@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,5 +69,15 @@ public class DistritoResource {
         }else {
             throw new NotFoundException();
         }
+    }
+
+    @GET
+    @Path("/report/{format}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response generarReporte(
+            @PathParam("format") String format,
+            @QueryParam("download") @DefaultValue("true") boolean download) {
+
+        return distritoMapper.generarReportes(format, download);
     }
 }

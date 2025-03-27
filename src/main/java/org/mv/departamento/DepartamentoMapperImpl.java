@@ -62,7 +62,7 @@ public class DepartamentoMapperImpl implements DepartamentoMapper {
     public Response generarReportes(String format, boolean download) {
         try {
             // hacer el datasource y cargarlo con la info del reporte
-            InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("muni.jasper");
+            InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("depa.jasper");
             if (jasperStream == null) {
                 throw new RuntimeException("Reporte no encontrado.");
             }
