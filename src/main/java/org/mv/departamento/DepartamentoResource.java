@@ -24,14 +24,12 @@ public class DepartamentoResource {
 
     Report report;
 
-    //AgroalDataSource datasource;
 
     @Inject
-    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper, Report report, AgroalDataSource datasource) {
+    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper, Report report) {
         this.departamentoRepository = departamentoRepository;
         this.departamentoMapper = departamentoMapper;
         this.report = report;
-        //this.datasource = datasource;
     }
 
     @GET
