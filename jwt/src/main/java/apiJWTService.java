@@ -1,5 +1,3 @@
-package org.maven;
-
 import io.smallrye.jwt.build.Jwt;
 import jakarta.inject.Singleton;
 
