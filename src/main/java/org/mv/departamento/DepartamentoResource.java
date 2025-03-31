@@ -33,8 +33,8 @@ public class DepartamentoResource {
     }
 
     @GET
-    @PermitAll
-    //@RolesAllowed({"admin", "writer"})
+    //@PermitAll
+    @RolesAllowed({"admin", "user"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
@@ -59,7 +59,7 @@ public class DepartamentoResource {
     }
 
     @DELETE
-    @RolesAllowed({"admin", "writer"})
+    @RolesAllowed({"admin"})
     @Path("/{id}")
     @Transactional
     public void delete(@PathParam("id") Long id){
