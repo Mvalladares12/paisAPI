@@ -1,5 +1,6 @@
 package org.mv.distrito;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -29,6 +30,7 @@ public class DistritoResource {
     }*/
 
     @GET
+    @RolesAllowed({"admin","user"})
     public List<DistritoDTO>  getAllDistritos() {
         return distritoRepository.list("order by id").stream()
                 .map(DistritoDTO::new)

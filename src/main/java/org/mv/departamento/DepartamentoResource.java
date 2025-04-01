@@ -50,7 +50,7 @@ public class DepartamentoResource {
     }
 
     @POST
-    @RolesAllowed({"admin", "writer"})
+    @RolesAllowed({"admin", "user"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateDepartamentoDTO departamento) {

@@ -1,5 +1,6 @@
 package org.mv.municipio;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -23,13 +24,8 @@ public class MunicipioResource {
         this.municipioMapper = municipioMapper;
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<Municipio> findAll() {
-//        return municipioRepository.listAll();
-//    }
-
     @GET
+    @RolesAllowed({"admin","user"})
     public List<MunicipioDTO> getAllMunicipios() {
         return municipioRepository.list("order by id").stream()
                 .map(MunicipioDTO::new)
@@ -43,6 +39,7 @@ public class MunicipioResource {
     }
 
     @POST
+    @RolesAllowed({"admin", "user"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateMunicipioDTO municipio) {
@@ -54,6 +51,7 @@ public class MunicipioResource {
     }
 
     @DELETE
+    @RolesAllowed("admin")
     @Path("/{id}")
     @Transactional
     public void delete(@PathParam("id") Long id){
