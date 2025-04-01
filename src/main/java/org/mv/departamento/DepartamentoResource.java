@@ -8,7 +8,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.mv.services.Report;
+//import org.mv.services.Report;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +22,14 @@ public class DepartamentoResource {
 
     DepartamentoMapper departamentoMapper;
 
-    Report report;
+    //Report report;
 
 
     @Inject
-    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper, Report report) {
+    public DepartamentoResource(DepartamentoRepository departamentoRepository, DepartamentoMapper departamentoMapper) {
         this.departamentoRepository = departamentoRepository;
         this.departamentoMapper = departamentoMapper;
-        this.report = report;
+        //this.report = report;
     }
 
     @GET
