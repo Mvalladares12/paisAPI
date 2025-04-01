@@ -1,12 +1,16 @@
 package org.mv.municipio;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +28,7 @@ public class MunicipioResource {
         this.municipioMapper = municipioMapper;
     }
 
+
     @GET
     @RolesAllowed({"admin","user"})
     public List<MunicipioDTO> getAllMunicipios() {
@@ -32,11 +37,6 @@ public class MunicipioResource {
                 .collect(Collectors.toList());
     }
 
-    @GET
-    @Path("{id}")
-    public Municipio getDep(@PathParam("id") Long id) {
-        return municipioRepository.findById(id);
-    }
 
     @POST
     @RolesAllowed({"admin", "user"})
@@ -44,11 +44,9 @@ public class MunicipioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateMunicipioDTO municipio) {
         var entity = municipioMapper.createMunicipio(municipio);
-        //Departamento Departamento = departamentoRepository.findById(Municipio.getIdDepartam());
-        /*municipio.setIdDepartam(municipio.getIdDepartam());
-        municipioRepository.persist(municipio);*/
         municipioRepository.persist(entity);
     }
+
 
     @DELETE
     @RolesAllowed("admin")
@@ -79,7 +77,6 @@ public class MunicipioResource {
     public Response generarReporte(
             @PathParam("format") String format,
             @QueryParam("download") @DefaultValue("true") boolean download) {
-
         return municipioMapper.generarReportes(format, download);
     }
 }

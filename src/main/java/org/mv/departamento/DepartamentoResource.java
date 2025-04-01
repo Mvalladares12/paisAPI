@@ -1,14 +1,11 @@
 package org.mv.departamento;
 
-import io.agroal.api.AgroalDataSource;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-//import org.mv.services.Report;
+import jakarta.ws.rs.core.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,8 +29,10 @@ public class DepartamentoResource {
         //this.report = report;
     }
 
+
+
+
     @GET
-    //@PermitAll
     @RolesAllowed({"admin", "user"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {

@@ -23,12 +23,6 @@ public class DistritoResource {
         this.distritoMapper = distritoMapper;
     }
 
-    /*@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Distrito> findAll() {
-        return distritoRepository.listAll();
-    }*/
-
     @GET
     @RolesAllowed({"admin","user"})
     public List<DistritoDTO>  getAllDistritos() {

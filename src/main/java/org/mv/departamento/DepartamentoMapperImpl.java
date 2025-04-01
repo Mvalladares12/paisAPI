@@ -14,10 +14,6 @@ import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.mv.municipio.CreateMunicipioDTO;
-import org.mv.municipio.Municipio;
-import org.mv.municipio.MunicipioMapper;
-//import org.mv.services.Report;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
