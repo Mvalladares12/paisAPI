@@ -83,4 +83,12 @@ public class DepartamentoResource {
 
             return departamentoMapper.generarReportes(format, download);
     }
+
+    /*@GET
+    @Path("/pdf")
+    @Produces("application/pdf")
+    public Response getDepartamentosPdf() {
+        byte[] repo= report.generateReport();
+        return Response.ok(repo).header("Content-Disposition", "attachment; filename=reporte.pdf").build();
+    }*/
 }
