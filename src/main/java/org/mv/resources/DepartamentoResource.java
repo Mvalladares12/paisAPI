@@ -1,4 +1,4 @@
-package org.mv.departamento;
+package org.mv.resources;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.mv.DTO.CreateDepartamentoDTO;
 import org.mv.DTO.DepartamentoDTO;
+import org.mv.repositorio.DepartamentoRepository;
 import org.mv.entidades.Departamento;
 import org.mv.services.DepartamentoMapper;
 
@@ -37,7 +38,7 @@ public class DepartamentoResource {
 
 
     @GET
-    @RolesAllowed({"uma_authorization", "user"})
+    @RolesAllowed({"ver_departamentos", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
@@ -48,12 +49,13 @@ public class DepartamentoResource {
 
     @GET
     @Path("{id}")
+    @RolesAllowed({"ver_departamentos", "admin"})
     public Departamento getDep(@PathParam("id") Long id) {
         return departamentoRepository.findById(id);
     }
 
     @POST
-    @RolesAllowed({"admin", "user"})
+    @RolesAllowed({"admin", "crear_departamentos"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateDepartamentoDTO departamento) {
@@ -62,7 +64,7 @@ public class DepartamentoResource {
     }
 
     @DELETE
-    @RolesAllowed({"admin"})
+    @RolesAllowed({"admin","borrar_departamentos"})
     @Path("/{id}")
     @Transactional
     public void delete(@PathParam("id") Long id){
@@ -72,6 +74,7 @@ public class DepartamentoResource {
 
     @PUT
     @Path("{id}")
+    @RolesAllowed({"admin","actualizar_departamentos"})
     @Transactional
     public CreateDepartamentoDTO update(@PathParam("id")Long id, CreateDepartamentoDTO depa) {
         return departamentoRepository.update(id,depa);
@@ -80,6 +83,7 @@ public class DepartamentoResource {
 
     @GET
     @Path("/report/{format}")
+    @RolesAllowed({"admin","reporte_departamentos"})
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response generarReporte(
             @PathParam("format") String format,
@@ -87,12 +91,4 @@ public class DepartamentoResource {
 
             return departamentoMapper.generarReportes(format, download);
     }
-
-    /*@GET
-    @Path("/pdf")
-    @Produces("application/pdf")
-    public Response getDepartamentosPdf() {
-        byte[] repo= report.generateReport();
-        return Response.ok(repo).header("Content-Disposition", "attachment; filename=reporte.pdf").build();
-    }*/
 }

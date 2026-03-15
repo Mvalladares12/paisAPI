@@ -5,7 +5,7 @@ import jakarta.inject.Inject;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.mv.DTO.DepartamentoDTO;
-import org.mv.departamento.DepartamentoRepository;
+import org.mv.repositorio.DepartamentoRepository;
 
 import java.io.InputStream;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package org.mv.municipio;
+package org.mv.resources;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -6,10 +6,10 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.mv.DTO.CreateMunicipioDTO;
 import org.mv.DTO.MunicipioDTO;
 import org.mv.entidades.Municipio;
+import org.mv.repositorio.MunicipioRepository;
 import org.mv.services.MunicipioMapper;
 
 import java.util.List;
@@ -23,15 +23,11 @@ public class MunicipioResource {
 
     private MunicipioMapper municipioMapper;
 
-    JsonWebToken jwt;
-
     @Inject
     public MunicipioResource(MunicipioMapper municipioMapper,
-                             MunicipioRepository municipioRepository,
-                             JsonWebToken jwt) {
+                             MunicipioRepository municipioRepository) {
         this.municipioRepository = municipioRepository;
         this.municipioMapper = municipioMapper;
-        this.jwt = jwt;
     }
 
 
@@ -45,7 +41,7 @@ public class MunicipioResource {
 
 
     @POST
-    @RolesAllowed({"admin", "user"})
+    @RolesAllowed({"admin", "crear_municipio"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateMunicipioDTO municipio) {
@@ -55,7 +51,7 @@ public class MunicipioResource {
 
 
     @DELETE
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin","borrar_municipio"})
     @Path("/{id}")
     @Transactional
     public void delete(@PathParam("id") Long id){
@@ -64,6 +60,7 @@ public class MunicipioResource {
 
     @PUT
     @Path("{id}")
+    @RolesAllowed({"admin","actualizar_municipio"})
     @Transactional
     public Municipio update(@PathParam("id")Long id, Municipio municipio) {
         var entity = municipioRepository.findById(id);
@@ -79,6 +76,7 @@ public class MunicipioResource {
 
     @GET
     @Path("/report/{format}")
+    @RolesAllowed({"admin","reporte_municipio"})
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response generarReporte(
             @PathParam("format") String format,

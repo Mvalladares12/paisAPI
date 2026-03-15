@@ -9,8 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "distrito")
 public class Distrito {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "distrito_id_gen")
-    @SequenceGenerator(name = "distrito_id_gen", sequenceName = "distrito_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

@@ -16,7 +16,7 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.mv.DTO.CreateMunicipioDTO;
 import org.mv.entidades.Departamento;
-import org.mv.departamento.DepartamentoRepository;
+import org.mv.repositorio.DepartamentoRepository;
 import org.mv.entidades.Municipio;
 
 import java.io.ByteArrayOutputStream;

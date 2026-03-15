@@ -1,4 +1,4 @@
-package org.mv.distrito;
+package org.mv.repositorio;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
