@@ -1,6 +1,8 @@
-package org.mv.departamento;
+package org.mv.services;
 
 import jakarta.ws.rs.core.Response;
+import org.mv.DTO.CreateDepartamentoDTO;
+import org.mv.entidades.Departamento;
 
 public interface DepartamentoMapper {
 

@@ -5,6 +5,10 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import org.mv.DTO.CreateDepartamentoDTO;
+import org.mv.DTO.DepartamentoDTO;
+import org.mv.entidades.Departamento;
+import org.mv.services.DepartamentoMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +37,7 @@ public class DepartamentoResource {
 
 
     @GET
-    @RolesAllowed({"admin", "user"})
+    @RolesAllowed({"uma_authorization", "user"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()

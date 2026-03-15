@@ -3,10 +3,9 @@ package org.mv.departamento;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
+import org.mv.DTO.CreateDepartamentoDTO;
+import org.mv.entidades.Departamento;
+import org.mv.services.DepartamentoMapper;
 
 @ApplicationScoped
 public class DepartamentoRepository implements PanacheRepository<Departamento> {

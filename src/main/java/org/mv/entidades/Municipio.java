@@ -1,15 +1,11 @@
-package org.mv.municipio;
+package org.mv.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.mv.departamento.Departamento;
-import org.mv.distrito.Distrito;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "municipio")

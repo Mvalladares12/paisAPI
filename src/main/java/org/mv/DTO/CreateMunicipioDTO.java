@@ -1,4 +1,4 @@
-package org.mv.municipio;
+package org.mv.DTO;
 
 public record CreateMunicipioDTO(
         Long idDepartamento,

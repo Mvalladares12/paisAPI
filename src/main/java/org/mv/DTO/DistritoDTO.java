@@ -1,4 +1,6 @@
-package org.mv.distrito;
+package org.mv.DTO;
+
+import org.mv.entidades.Distrito;
 
 public class DistritoDTO {
     public Integer id;

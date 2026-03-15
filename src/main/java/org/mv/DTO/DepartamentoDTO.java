@@ -1,6 +1,6 @@
-package org.mv.departamento;
+package org.mv.DTO;
 
-import org.mv.municipio.MunicipioDTO;
+import org.mv.entidades.Departamento;
 
 import java.util.List;
 import java.util.stream.Collectors;

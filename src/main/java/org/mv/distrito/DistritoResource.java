@@ -6,6 +6,10 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.mv.DTO.CreateDistritoDTO;
+import org.mv.DTO.DistritoDTO;
+import org.mv.entidades.Distrito;
+import org.mv.services.DistritoMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +28,7 @@ public class DistritoResource {
     }
 
     @GET
-    @RolesAllowed({"admin","user"})
+    @RolesAllowed({"uma_authorization","user"})
     public List<DistritoDTO>  getAllDistritos() {
         return distritoRepository.list("order by id").stream()
                 .map(DistritoDTO::new)

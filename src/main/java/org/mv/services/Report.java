@@ -4,16 +4,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.mv.departamento.Departamento;
-import org.mv.departamento.DepartamentoDTO;
+import org.mv.DTO.DepartamentoDTO;
 import org.mv.departamento.DepartamentoRepository;
 
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @ApplicationScoped

@@ -1,4 +1,4 @@
-package org.mv.municipio;
+package org.mv.services;
 
 import io.agroal.api.AgroalDataSource;
 import jakarta.enterprise.context.RequestScoped;
@@ -14,8 +14,10 @@ import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.mv.departamento.Departamento;
+import org.mv.DTO.CreateMunicipioDTO;
+import org.mv.entidades.Departamento;
 import org.mv.departamento.DepartamentoRepository;
+import org.mv.entidades.Municipio;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

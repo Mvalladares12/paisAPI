@@ -1,4 +1,4 @@
-package org.mv.departamento;
+package org.mv.DTO;
 
 public record CreateDepartamentoDTO(
         String codigo,

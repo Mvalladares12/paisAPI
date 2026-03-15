@@ -1,16 +1,17 @@
 package org.mv.municipio;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.SecurityContext;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.mv.DTO.CreateMunicipioDTO;
+import org.mv.DTO.MunicipioDTO;
+import org.mv.entidades.Municipio;
+import org.mv.services.MunicipioMapper;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,15 +23,20 @@ public class MunicipioResource {
 
     private MunicipioMapper municipioMapper;
 
+    JsonWebToken jwt;
+
     @Inject
-    public MunicipioResource(MunicipioMapper municipioMapper, MunicipioRepository municipioRepository) {
+    public MunicipioResource(MunicipioMapper municipioMapper,
+                             MunicipioRepository municipioRepository,
+                             JsonWebToken jwt) {
         this.municipioRepository = municipioRepository;
         this.municipioMapper = municipioMapper;
+        this.jwt = jwt;
     }
 
 
     @GET
-    @RolesAllowed({"admin","user"})
+    @RolesAllowed({"ver_municipio","admin"})
     public List<MunicipioDTO> getAllMunicipios() {
         return municipioRepository.list("order by id").stream()
                 .map(MunicipioDTO::new)

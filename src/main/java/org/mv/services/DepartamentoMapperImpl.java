@@ -1,9 +1,8 @@
-package org.mv.distrito;
+package org.mv.services;
 
 import io.agroal.api.AgroalDataSource;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-
 import jakarta.ws.rs.core.Response;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -15,8 +14,9 @@ import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.mv.municipio.Municipio;
-import org.mv.municipio.MunicipioRepository;
+import org.mv.DTO.CreateDepartamentoDTO;
+import org.mv.entidades.Departamento;
+import org.mv.departamento.DepartamentoRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -24,39 +24,49 @@ import java.sql.Connection;
 import java.util.HashMap;
 
 @RequestScoped
-public class DistritoMapperImpl implements DistritoMapper {
+public class DepartamentoMapperImpl implements DepartamentoMapper {
 
-
-    MunicipioRepository muni;
+    @Inject
+    DepartamentoRepository departamento;
 
     AgroalDataSource datasource;
 
     @Inject
-    public DistritoMapperImpl(MunicipioRepository muni, AgroalDataSource datasource) {
-        this.muni = muni;
+    public DepartamentoMapperImpl(DepartamentoRepository departamento, AgroalDataSource datasource) {
+        this.departamento = departamento;
+
         this.datasource = datasource;
     }
 
     @Override
-    public Distrito createDistrito(CreateDistritoDTO dto) {
-        Distrito distrito=new Distrito();
-        Municipio municipio= muni.findById(dto.idMunicipio());
-        distrito.setIdMunicipio(municipio);
-        distrito.setNombre(dto.nombre());
-        distrito.setCodigo(dto.codigo());
-        return distrito;
+    public Departamento createDepartamento(CreateDepartamentoDTO dto) {
+        Departamento departamento=new Departamento();
+        departamento.setNombre(dto.nombre());
+        departamento.setCodigo(dto.codigo());
+        return departamento;
+    }
+
+    @Override
+    public void updateDepartamento(CreateDepartamentoDTO dto, Departamento depa) {
+        depa.setNombre(dto.nombre());
+        depa.setCodigo(dto.codigo());
+    }
+
+    @Override
+    public CreateDepartamentoDTO present(Departamento departamento) {
+        return new  CreateDepartamentoDTO(departamento.getNombre(),departamento.getCodigo());
     }
 
     @Override
     public Response generarReportes(String format, boolean download) {
         try {
             // hacer el datasource y cargarlo con la info del reporte
-            InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("distri.jasper");
+            InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("depa.jasper");
             if (jasperStream == null) {
                 throw new RuntimeException("Reporte no encontrado.");
             }
 
-            // se genera el archivo que se va mostrar
+            // se genera el archivo que se va imprimir
             Connection conn = datasource.getConnection();
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperStream,
@@ -95,7 +105,7 @@ public class DistritoMapperImpl implements DistritoMapper {
 
             if (download) {
                 response.header("Content-Disposition",
-                        "attachment; filename=reporte_distritos." + fileExtension);
+                        "attachment; filename=reporte_departamentos." + fileExtension);
             }
 
             return response.build();

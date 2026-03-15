@@ -1,13 +1,10 @@
-package org.mv.departamento;
+package org.mv.entidades;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.mv.municipio.Municipio;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "departamento")
