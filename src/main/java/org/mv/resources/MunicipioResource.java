@@ -41,7 +41,7 @@ public class MunicipioResource {
 
 
     @POST
-    @RolesAllowed({"admin", "crear_municipio"})
+    @RolesAllowed({"super", "crear_municipio"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateMunicipioDTO municipio) {

@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "municipio")
 public class Municipio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "municipio_id_gen")
+    @SequenceGenerator(name = "municipio_id_gen", sequenceName = "municipio_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 
