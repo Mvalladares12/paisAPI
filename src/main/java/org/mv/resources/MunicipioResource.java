@@ -32,7 +32,7 @@ public class MunicipioResource {
 
 
     @GET
-    @RolesAllowed({"ver_municipio","admin"})
+//    @RolesAllowed({"ver_municipio","admin"})
     public List<MunicipioDTO> getAllMunicipios() {
         return municipioRepository.list("order by id").stream()
                 .map(MunicipioDTO::new)
