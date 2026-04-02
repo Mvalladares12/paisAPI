@@ -38,7 +38,7 @@ public class DepartamentoResource {
 
 
     @GET
-    @RolesAllowed({"ver_departamentos", "admin"})
+    @RolesAllowed({"ver_departamento", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
@@ -49,13 +49,13 @@ public class DepartamentoResource {
 
     @GET
     @Path("{id}")
-    @RolesAllowed({"ver_departamentos", "admin"})
+    @RolesAllowed({"ver_departamento", "admin"})
     public Departamento getDep(@PathParam("id") Long id) {
         return departamentoRepository.findById(id);
     }
 
     @POST
-    @RolesAllowed({"admin", "crear_departamentos"})
+    @RolesAllowed({"admin", "crear_departamento"})
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateDepartamentoDTO departamento) {
@@ -64,7 +64,7 @@ public class DepartamentoResource {
     }
 
     @DELETE
-    @RolesAllowed({"admin","borrar_departamentos"})
+    @RolesAllowed({"admin","borrar_departamento"})
     @Path("/{id}")
     @Transactional
     public void delete(@PathParam("id") Long id){
@@ -74,7 +74,7 @@ public class DepartamentoResource {
 
     @PUT
     @Path("{id}")
-    @RolesAllowed({"admin","actualizar_departamentos"})
+    @RolesAllowed({"admin","actualizar_departamento"})
     @Transactional
     public CreateDepartamentoDTO update(@PathParam("id")Long id, CreateDepartamentoDTO depa) {
         return departamentoRepository.update(id,depa);
@@ -83,7 +83,7 @@ public class DepartamentoResource {
 
     @GET
     @Path("/report/{format}")
-    @RolesAllowed({"admin","reporte_departamentos"})
+    @RolesAllowed({"admin","reporte_departamento"})
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response generarReporte(
             @PathParam("format") String format,

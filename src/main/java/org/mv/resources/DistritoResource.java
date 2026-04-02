@@ -29,7 +29,7 @@ public class DistritoResource {
     }
 
     @GET
-    @RolesAllowed({"ver_distritos","admin"})
+    @RolesAllowed({"ver_distrito","admin"})
     public List<DistritoDTO>  getAllDistritos() {
         return distritoRepository.list("order by id").stream()
                 .map(DistritoDTO::new)
@@ -38,14 +38,14 @@ public class DistritoResource {
 
     @GET
     @Path("{id}")
-    @RolesAllowed({"ver_distritos","admin"})
+    @RolesAllowed({"ver_distrito","admin"})
     public Distrito getDep(@PathParam("id") Long id) {
         return distritoRepository.findById(id);
     }
 
     @POST
     @Transactional
-    @RolesAllowed({"crear_distritos","admin"})
+    @RolesAllowed({"crear_distrito","admin"})
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateDistritoDTO distrito) {
         var entity=distritoMapper.createDistrito(distrito);
@@ -54,7 +54,7 @@ public class DistritoResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"borrar_distritos","admin"})
+    @RolesAllowed({"borrar_distrito","admin"})
     @Transactional
     public void delete(@PathParam("id") Long id){
         distritoRepository.deleteById(id);
@@ -63,7 +63,7 @@ public class DistritoResource {
     @PUT
     @Path("{id}")
     @Transactional
-    @RolesAllowed({"actualizar_distritos","admin"})
+    @RolesAllowed({"actualizar_distrito","admin"})
     public Distrito update(@PathParam("id")Long id, Distrito distrito) {
         var entity = distritoRepository.findById(id);
         if (entity != null) {
@@ -78,7 +78,7 @@ public class DistritoResource {
 
     @GET
     @Path("/report/{format}")
-    @RolesAllowed({"reporte_distritos","admin"})
+    @RolesAllowed({"reporte_distrito","admin"})
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response generarReporte(
             @PathParam("format") String format,
