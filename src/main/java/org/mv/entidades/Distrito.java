@@ -9,15 +9,16 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "distrito")
 public class Distrito {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "distrito_id_gen")
+    @SequenceGenerator(name = "distrito_id_gen", sequenceName = "distrito_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id_municipio", nullable = false)
-    private Municipio idMunicipio;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Column(name = "id_municipio", nullable = false)
+    private Long idMunicipio;
 
     @Column(name = "codigo", nullable = false, length = 3)
     private String codigo;
@@ -25,19 +26,19 @@ public class Distrito {
     @Column(name = "nombre", nullable = false, length = 80)
     private String nombre;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Municipio getIdMunicipio() {
+    public Long getIdMunicipio() {
         return idMunicipio;
     }
 
-    public void setIdMunicipio(Municipio idMunicipio) {
+    public void setIdMunicipio(Long idMunicipio) {
         this.idMunicipio = idMunicipio;
     }
 

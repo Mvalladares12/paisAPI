@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DepartamentoDTO {
-    public Integer id;
+    public Long id;
     public String codigo;
     public String nombre;
     public List<MunicipioDTO> municipios;
@@ -15,16 +15,16 @@ public class DepartamentoDTO {
         this.id = departamento.getId();
         this.codigo = departamento.getCodigo();
         this.nombre = departamento.getNombre();
-        this.municipios = departamento.getMunicipios().stream()
-                .map(MunicipioDTO::new)
-                .collect(Collectors.toList());
+//        this.municipios = departamento.getMunicipios().stream()
+//                .map(MunicipioDTO::new)
+//                .collect(Collectors.toList());
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

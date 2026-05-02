@@ -10,6 +10,7 @@ import org.mv.DTO.DepartamentoDTO;
 import org.mv.repositorio.DepartamentoRepository;
 import org.mv.entidades.Departamento;
 import org.mv.services.DepartamentoMapper;
+import org.mv.services.Roles;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class DepartamentoResource {
 
 
     @GET
-    @RolesAllowed({"ver_departamento", "admin"})
+    @RolesAllowed({Roles.VER_DEPARTAMENTO, Roles.ADMIN})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
@@ -56,7 +57,6 @@ public class DepartamentoResource {
 
     @POST
     @RolesAllowed({"admin", "crear_departamento"})
-    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(CreateDepartamentoDTO departamento) {
         var entity=departamentoMapper.createDepartamento(departamento);
@@ -73,11 +73,17 @@ public class DepartamentoResource {
 
 
     @PUT
-    @Path("{id}")
     @RolesAllowed({"admin","actualizar_departamento"})
-    @Transactional
-    public CreateDepartamentoDTO update(@PathParam("id")Long id, CreateDepartamentoDTO depa) {
-        return departamentoRepository.update(id,depa);
+    public Departamento update(Departamento depa) {
+        var entity = departamentoRepository.findById(depa.getId());
+        if (entity != null) {
+            entity.setCodigo(depa.getCodigo());
+            entity.setNombre(depa.getNombre());
+            departamentoRepository.flush();
+            return entity;
+        }else {
+            throw new NotFoundException();
+        }
     }
 
 

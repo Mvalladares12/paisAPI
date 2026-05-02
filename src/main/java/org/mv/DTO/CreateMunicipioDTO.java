@@ -1,11 +1,11 @@
 package org.mv.DTO;
 
 public record CreateMunicipioDTO(
-        Long idDepartamento,
+        Long idDepartam,
         String nombre,
         String codigo
 ) {
     public Long getIdDepartamento () {
-        return idDepartamento;
+        return idDepartam;
     }
 }

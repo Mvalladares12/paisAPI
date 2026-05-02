@@ -12,12 +12,13 @@ public class DepartamentoRepository implements PanacheRepository<Departamento> {
     @Inject
     DepartamentoMapper departamentoMapper;
 
-    public CreateDepartamentoDTO update(Long id, CreateDepartamentoDTO depa) {
-        var updateDepa=findById(id);
+    public Departamento update(Departamento depa) {
+        Departamento updateDepa=findById(depa.getId());
         if(updateDepa!=null){
-            departamentoMapper.updateDepartamento(depa,updateDepa);
-            persist(updateDepa);
-            return departamentoMapper.present(updateDepa);
+            updateDepa.setNombre(depa.getNombre());
+            updateDepa.setCodigo(depa.getCodigo());
+            flush();
+            return updateDepa;
         }else {
             throw  new RuntimeException("Departamento nao encontrado");
         }

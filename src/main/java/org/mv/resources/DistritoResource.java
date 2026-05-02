@@ -1,5 +1,6 @@
 package org.mv.resources;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -61,15 +62,15 @@ public class DistritoResource {
     }
 
     @PUT
-    @Path("{id}")
     @Transactional
     @RolesAllowed({"actualizar_distrito","admin"})
-    public Distrito update(@PathParam("id")Long id, Distrito distrito) {
-        var entity = distritoRepository.findById(id);
+    public Distrito update(Distrito distrito) {
+        var entity = distritoRepository.findById(distrito.getId());
         if (entity != null) {
+            entity.setIdMunicipio(distrito.getIdMunicipio());
             entity.setCodigo(distrito.getCodigo());
             entity.setNombre(distrito.getNombre());
-            distritoRepository.persist(entity);
+            distritoRepository.flush();
             return entity;
         }else {
             throw new NotFoundException();

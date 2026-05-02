@@ -1,5 +1,6 @@
 package org.mv.resources;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -32,11 +33,18 @@ public class MunicipioResource {
 
 
     @GET
-//    @RolesAllowed({"ver_municipio","admin"})
+    @RolesAllowed({"ver_municipio","admin"})
     public List<MunicipioDTO> getAllMunicipios() {
         return municipioRepository.list("order by id").stream()
                 .map(MunicipioDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @GET
+    @Path("{id}")
+    @RolesAllowed({"ver_municipio","admin"})
+    public Municipio getMunicipio(@PathParam("id") Long id) {
+        return municipioRepository.findById(id);
     }
 
 
@@ -59,15 +67,15 @@ public class MunicipioResource {
     }
 
     @PUT
-    @Path("{id}")
     @RolesAllowed({"admin","actualizar_municipio"})
     @Transactional
-    public Municipio update(@PathParam("id")Long id, Municipio municipio) {
-        var entity = municipioRepository.findById(id);
+    public Municipio update(Municipio municipio) {
+        var entity = municipioRepository.findById(municipio.getId());
         if (entity != null) {
+            entity.setIdDepartam(municipio.getIdDepartam());
             entity.setCodigo(municipio.getCodigo());
             entity.setNombre(municipio.getNombre());
-            municipioRepository.persist(entity);
+            municipioRepository.flush();
             return entity;
         }else {
             throw new NotFoundException();

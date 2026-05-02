@@ -41,8 +41,7 @@ public class MunicipioMapperImpl implements MunicipioMapper {
     @Override
     public Municipio createMunicipio(CreateMunicipioDTO dto) {
         Municipio municipio=new Municipio();
-        Departamento departamento=depa.findById(dto.idDepartamento());
-        municipio.setIdDepartam(departamento);
+        municipio.setIdDepartam(dto.idDepartam());
         municipio.setNombre(dto.nombre());
         municipio.setCodigo(dto.codigo());
         return municipio;

@@ -1,5 +1,6 @@
 package org.mv.entidades;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
@@ -14,13 +15,13 @@ public class Municipio {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "municipio_id_gen")
     @SequenceGenerator(name = "municipio_id_gen", sequenceName = "municipio_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "id_departam", nullable = false)
-    private Departamento idDepartam;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+//    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @Column(name = "id_departam", nullable = false)
+    private Long idDepartam;
 
     @Column(name = "codigo", nullable = false, length = 3)
     private String codigo;
@@ -32,19 +33,19 @@ public class Municipio {
     @OneToMany(mappedBy = "idMunicipio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Distrito> distritos;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Departamento getIdDepartam() {
+    public Long getIdDepartam() {
         return idDepartam;
     }
 
-    public void setIdDepartam(Departamento idDepartam) {
+    public void setIdDepartam(Long idDepartam) {
         this.idDepartam = idDepartam;
     }
 
@@ -73,7 +74,4 @@ public class Municipio {
     }
 
 
-    public String getDepartamento(){
-        return this.idDepartam.getNombre();
-    }
 }

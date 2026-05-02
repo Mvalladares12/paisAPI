@@ -42,8 +42,8 @@ public class DistritoMapperImpl implements DistritoMapper {
     @Override
     public Distrito createDistrito(CreateDistritoDTO dto) {
         Distrito distrito=new Distrito();
-        Municipio municipio= muni.findById(dto.idMunicipio());
-        distrito.setIdMunicipio(municipio);
+//        Municipio municipio= muni.findById(dto.idMunicipio());
+        distrito.setIdMunicipio(dto.idMunicipio());
         distrito.setNombre(dto.nombre());
         distrito.setCodigo(dto.codigo());
         return distrito;

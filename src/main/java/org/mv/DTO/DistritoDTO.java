@@ -3,15 +3,15 @@ package org.mv.DTO;
 import org.mv.entidades.Distrito;
 
 public class DistritoDTO {
-    public Integer id;
+    public Long id;
     public String codigo;
     public String nombre;
-    public Integer idMunicipio; // ID del municipio al que pertenece
+    public Long idMunicipio; // ID del municipio al que pertenece
 
     public DistritoDTO(Distrito distrito) {
         this.id = distrito.getId();
         this.codigo = distrito.getCodigo();
         this.nombre = distrito.getNombre();
-        this.idMunicipio = distrito.getIdMunicipio().getId();
+        this.idMunicipio = distrito.getIdMunicipio();
     }
 }
