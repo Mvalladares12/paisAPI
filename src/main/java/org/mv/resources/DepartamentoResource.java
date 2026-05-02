@@ -39,7 +39,7 @@ public class DepartamentoResource {
 
 
     @GET
-    @RolesAllowed({Roles.VER_DEPARTAMENTO, Roles.ADMIN})
+    @RolesAllowed({Roles.VER_DEPARTAMENTO, Roles.ADMIN, "crear_municipio"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<DepartamentoDTO> getAllDepartamentos() {
         return departamentoRepository.list("order by id").stream()
